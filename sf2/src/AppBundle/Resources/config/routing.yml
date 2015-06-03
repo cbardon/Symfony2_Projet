@@ -1,0 +1,27 @@
+tache_lister:
+    pattern: /tache/
+    defaults: {_controller: AppBundle:Task:lister }
+tache_ajouter: 
+    pattern: /tache/ajouter
+    defaults: {_controller: AppBundle:Task:ajouter }
+tache_modifier:
+    pattern: /tache/modifier/{id}
+    defaults: {_controller: AppBundle:Task:modifier }
+tache_supprimer: 
+    pattern: /tache/supprimer/{id}
+    defaults: {_controller: AppBundle:Task:supprimer }
+
+
+
+taskList_lister:
+    pattern: /taskList/
+    defaults: {_controller: AppBundle:TaskList:lister }
+taskList_ajouter:
+    pattern: /taskList/ajouter
+    defaults: {_controller: AppBundle:TaskList:ajouter }
+taskListe_modifier:
+    pattern: /taskList/modifier/{id}
+    defaults: {_controller: AppBundle:TaskList:modifier }
+taskList_supprimer:
+    pattern: /taskList/supprimer/{id}
+    defaults: {_controller: AppBundle:TaskList:supprimer }

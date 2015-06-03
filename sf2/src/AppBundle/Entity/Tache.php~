@@ -1,0 +1,172 @@
+<?php
+namespace AppBundle\Entity;
+ use Doctrine\ORM\Mapping as ORM;
+  use Symfony\Component\Validator\Constraints as Assert;
+  
+   /** * @ORM\Entity */
+   class Tache 
+   { 
+	  /**  
+      * @ORM\GeneratedValue     
+      * @ORM\Id  
+      * @ORM\Column(type="integer")     
+      **/
+      private $id;
+      
+      /**
+       * @ORM\Column (type="string")
+       * @Assert\NotBlank()
+       */
+       private $nomTache; 
+
+	/**
+       * @ORM\Column (type="date")
+       * @Assert\NotBlank()
+       */
+       private $date_limite; 
+       
+       /**
+       * @ORM\OneToOne(targetEntity="Etat")
+       *  @Assert\NotBlank()
+       */
+		private $etat;
+		
+		/**
+       * @ORM\ManyToOne(targetEntity="ListeTaches")
+       *  @Assert\NotBlank()
+       */
+		private $liste;
+		
+	    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->liste = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set nomTache
+     *
+     * @param string $nomTache
+     * @return Tache
+     */
+    public function setNomTache($nomTache)
+    {
+        $this->nomTache = $nomTache;
+
+        return $this;
+    }
+
+    /**
+     * Get nomTache
+     *
+     * @return string 
+     */
+    public function getNomTache()
+    {
+        return $this->nomTache;
+    }
+
+    /**
+     * Set date_limite
+     *
+     * @param \DateTime $dateLimite
+     * @return Tache
+     */
+    public function setDateLimite($dateLimite)
+    {
+        $this->date_limite = $dateLimite;
+
+        return $this;
+    }
+
+    /**
+     * Get date_limite
+     *
+     * @return \DateTime 
+     */
+    public function getDateLimite()
+    {
+        return $this->date_limite;
+    }
+
+    /**
+     * Set etat
+     *
+     * @param \AppBundle\Entity\Etat $etat
+     * @return Tache
+     */
+    public function setEtat(\AppBundle\Entity\Etat $etat = null)
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * Get etat
+     *
+     * @return \AppBundle\Entity\Etat 
+     */
+    public function getEtat()
+    {
+        return $this->etat;
+    }
+
+    /**
+     * Add liste
+     *
+     * @param \AppBundle\Entity\ListeTaches $liste
+     * @return Tache
+     */
+    public function addListe(\AppBundle\Entity\ListeTaches $liste)
+    {
+        $this->liste[] = $liste;
+
+        return $this;
+    }
+
+    /**
+     * Remove liste
+     *
+     * @param \AppBundle\Entity\ListeTaches $liste
+     */
+    public function removeListe(\AppBundle\Entity\ListeTaches $liste)
+    {
+        $this->liste->removeElement($liste);
+    }
+
+    /**
+     * Get liste
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getListe()
+    {
+        return $this->liste;
+    }
+
+    /**
+     * Set liste
+     *
+     * @param \AppBundle\Entity\ListeTaches $liste
+     * @return Tache
+     */
+    public function setListe(\AppBundle\Entity\ListeTaches $liste = null)
+    {
+        $this->liste = $liste;
+
+        return $this;
+    }
+}
