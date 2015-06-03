@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="{{ asset('bundles/AppBundle/css/foundation.css') }}" />
     <link rel="stylesheet" href="{{ asset('bundles/AppBundle/css/foundation.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('bundles/AppBundle/css/normalize.css') }}" />
+<title>{{ title }}</title>
 {% endblock %}
 
 
@@ -24,11 +25,23 @@
                         </a>
                     </li>
                 </ul>
+
                 <section class="top-bar-section">
                     <ul class="right">
-                        <li class="active"><a href="">List</a></li>
-                        <li class="active"><a href="">Task List</a></li>
-
+                        <li class="has-dropdown">
+                            <a href="#">Task List</a>
+                            <ul class="dropdown">
+                                <li><a href="#">Show Task List</a></li>
+                                <li><a href="#">Add Task List</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-dropdown">
+                        <a href="#">List</a>
+                            <ul class="dropdown">
+                                <li><a href="../tache/">Show List</a></li>
+                                <li><a href="#">Add task</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </section>
             </nav>
@@ -37,14 +50,15 @@
         {% endblock %}
 
         <div class="row">
+            <br/>
             {% block content %}{% endblock %}
             <br/>
             <footer class="row panel">
                 <div align="center">
-                    Cette application a était réalisé pour le Projet PHP de Mr Durand
+                    This project was create for Mr DURAND William and his PHP Project , the Todo List
                 </div>
                 <div align="center">
-                    Produit par BARDON Clément et BAILLOT Mickael
+                    Product by BAILLOT Mickael and BARDON Clément
                 </div>
 
             </footer>

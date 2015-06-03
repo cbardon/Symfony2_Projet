@@ -12,8 +12,15 @@ namespace AppBundle\Controller;
     class TaskListController extends Controller
      {
 		  public function listerAction()  
-		     { 
-			return $this->render('AppBundle:TaskList:listerListeTache.html.twig');   
+		     {
+                 $task = $this->getDoctrine()
+                     ->getRepository('AppBundle:ListeTaches');
+
+
+                 if(!$task){
+                     throw $this->createNotFoundException('No List task !');
+                 }
+                 return $this->render('AppBundle:TaskList:listerListeTache.html.twig', array('title' => 'Show Task List'));
 			}
 			
 		public function ajouterAction(Request $request)  
@@ -32,17 +39,17 @@ namespace AppBundle\Controller;
 			}
 			
 		return $this->render('AppBundle:TaskList:ajouterListeTache.html.twig', array(
-            'form' => $form->createView(),
+            'form' => $form->createView(),'title' => 'Add List task'
         ));
 		} 
 						     
 		public function modifierAction($id) 
 		{ 
-		return $this->render('AppBundle:TaskList:modifierListeTache.html.twig'); 
+		return $this->render('AppBundle:TaskList:modifierListeTache.html.twig', array('title' => 'Update Task List'));
 		 } 
 									     
 		 public function supprimerAction($id) 
 		 { 
-			return $this->render('AppBundle:TaskList:supprimerListeTache.html.twig');  
+			return $this->render('AppBundle:TaskList:supprimerListeTache.html.twig', array('title' => 'Remove Task List'));
 		 }
 	}

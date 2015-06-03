@@ -1,14 +1,14 @@
-tache_lister:
-    pattern: /tache/
+task_lister:
+    pattern: /task/
     defaults: {_controller: AppBundle:Task:lister }
-tache_ajouter: 
-    pattern: /tache/ajouter
+task_ajouter:
+    pattern: /task/ajouter
     defaults: {_controller: AppBundle:Task:ajouter }
-tache_modifier:
-    pattern: /tache/modifier/{id}
+task_modifier:
+    pattern: /task/modifier/{id}
     defaults: {_controller: AppBundle:Task:modifier }
-tache_supprimer: 
-    pattern: /tache/supprimer/{id}
+task_supprimer:
+    pattern: /task/supprimer/{id}
     defaults: {_controller: AppBundle:Task:supprimer }
 
 

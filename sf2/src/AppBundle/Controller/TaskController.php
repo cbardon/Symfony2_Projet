@@ -12,11 +12,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     
     class TaskController extends Controller
      {
-		  public function listerAction(Request $request)  
-		     { 
-				 
-				 
-			return $this->render('AppBundle:Tache:listerTache.html.twig');   
+		  public function listerAction(Request $request)
+		     {
+
+                 $task = $this->getDoctrine()
+                 ->getRepository('AppBundle:Tache');
+
+
+                 if(!$task){
+                     throw $this->createNotFoundException('No task !');
+                 }
+			return $this->render('AppBundle:List:listerTask.html.twig', array('title' => 'Show task'));
 			}
 			
 		public function ajouterAction(Request $request)  
@@ -24,8 +30,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 			 $task = new Tache();
       
         $form = $this->createFormBuilder($task)
-            ->add('nom', 'text')
-            ->add('liste','hidden', array('data' => this.getListe()))
+            ->add('nomTache', 'text')
+            //->add('liste','hidden', array('data' => this.getListe()))
                 ->add('etat', 'checkbox', array(
                 'label' => 'Check !', 'required' => false,))
             ->add('save', 'submit')
@@ -33,14 +39,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
             
             $form->handleRequest($request);
             if($form->isValid()){
-				$nom = $request->request('nom');
+				$nom = $request->request('nomTache');
 					$etat = $request->request('etat');
 				return $this->redirectToRoute('task_success');
 			}
 
-      return $this->render('AppBundle:Tache:ajouterTache.html.twig', array(
-            'form' => $form->createView(),
-        ));
+      return $this->render('AppBundle:List:ajouterTask.html.twig', array(
+            'form' => $form->createView(), 'title' => 'Add task'));
 		
 		} 
 						     
@@ -48,11 +53,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 		{ 
 			
 			
-		return $this->render('AppBundle:Tache:modifierTache.html.twig'); 
+		return $this->render('AppBundle:Tache:modifierTache.html.twig', array('title' => 'Update Task'));
 		 } 
 									     
 		 public function supprimerAction($id,Request $request) 
 		 { 
-			return $this->render('AppBundle:Tache:supprimerTache.html.twig');  
+			return $this->render('AppBundle:Tache:supprimerTache.html.twig', array('title' => 'Remove Task'));
 		 }
 	}
