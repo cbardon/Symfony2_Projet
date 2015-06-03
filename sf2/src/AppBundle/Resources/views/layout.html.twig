@@ -6,23 +6,48 @@
     <link rel="stylesheet" href="{{ asset('bundles/AppBundle/css/normalize.css') }}" />
 {% endblock %}
 
-{% block title 'Demo Bundle' %}
 
     {% block body %}
 
 
         {% block content_header %}
-            <ul id="menu">
-                {% block content_header_more %}
-                    <li><a href="{{ path('_demo') }}">Demo Home</a></li>
-                {% endblock %}
-            </ul>
+            <nav class="top-bar" data-topbar role="navigation">
+                <ul class="title-area">
+                    <li class="name">
+                        <h1>
+                            <a href="">Home</a>
+                        </h1>
+                    </li>
+                    <li class="toggle-topbar menu-icon">
+                        <a href="#">
+                            <span>Menu</span>
+                        </a>
+                    </li>
+                </ul>
+                <section class="top-bar-section">
+                    <ul class="right">
+                        <li class="active"><a href="">List</a></li>
+                        <li class="active"><a href="">Task List</a></li>
+
+                    </ul>
+                </section>
+            </nav>
 
             <div style="clear: both"></div>
         {% endblock %}
 
-        <div class="block">
+        <div class="row">
             {% block content %}{% endblock %}
+            <br/>
+            <footer class="row panel">
+                <div align="center">
+                    Cette application a était réalisé pour le Projet PHP de Mr Durand
+                </div>
+                <div align="center">
+                    Produit par BARDON Clément et BAILLOT Mickael
+                </div>
+
+            </footer>
         </div>
 
         {% if code is defined %}
