@@ -13,14 +13,15 @@ namespace AppBundle\Controller;
      {
 		  public function listerAction()  
 		     {
-                 $task = $this->getDoctrine()
-                     ->getRepository('AppBundle:ListeTaches');
+                 $task = $this->getDoctrine()->getManager();
+                 $listRepository = $task->getRepository('AppBundle:ListeTaches');
 
+                 $lists = $listRepository->findAll();
 
                  if(!$task){
                      throw $this->createNotFoundException('No List task !');
                  }
-                 return $this->render('AppBundle:TaskList:listerListeTache.html.twig', array('title' => 'Show Task List'));
+                 return $this->render('AppBundle:TaskList:listerListeTache.html.twig', array('title' => 'Show Task List','lists' => $lists));
 			}
 			
 		public function ajouterAction(Request $request)  

@@ -14,15 +14,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
      {
 		  public function listerAction(Request $request)
 		     {
+                $task = $this->getDoctrine()->getManager();
+                 $listRepository = $task->getRepository('AppBundle:Tache');
 
-                 $task = $this->getDoctrine()
-                 ->getRepository('AppBundle:Tache');
-
+                 $lists = $listRepository->findAll();
 
                  if(!$task){
                      throw $this->createNotFoundException('No task !');
                  }
-			return $this->render('AppBundle:List:listerTask.html.twig', array('title' => 'Show task'));
+			return $this->render('AppBundle:List:listerTask.html.twig', array('title' => 'Show task','lists' => $lists));
 			}
 			
 		public function ajouterAction(Request $request)  
