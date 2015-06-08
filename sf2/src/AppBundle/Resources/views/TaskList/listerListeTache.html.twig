@@ -1,11 +1,12 @@
 {% extends "AppBundle::layout.html.twig" %}
 
-{%  block body %}
+{% block content %}
+
     {% for list in lists %}
         <li>
-            <h3>{{ list.nom }}</h3>
-            <p>Number of tasks : {{ list.id|length }}</p>
+            <h3>{{ list.id }} - {{ list.nom }}</h3>
         </li>
-        <li></li>
+
     {% endfor %}
+
 {% endblock %}

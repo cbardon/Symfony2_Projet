@@ -1,18 +1,22 @@
 <?php
 
 namespace AppBundle\Controller;
+
  use Symfony\Component\DependencyInjection\ContainerAware;
   use Symfony\Component\HttpFoundation\RedirectResponse;
    use Symfony\Component\HttpKernel\Exception\NotFoundHttpException; 
    use AppBundle\Entity\Tache;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+ use Symfony\Component\Form\FormEvent;
+ use Symfony\Component\Form\FormEvents;
+ use Symfony\Component\Form\FormBuilderInterface;
 
     //use MyApp\FilmothequeBundle\Form\ActeurForm;
     
     class TaskController extends Controller
      {
-		  public function listerAction(Request $request)
+		  public function listerAction()
 		     {
                 $task = $this->getDoctrine()->getManager();
                  $listRepository = $task->getRepository('AppBundle:Tache');
@@ -24,11 +28,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
                  }
 			return $this->render('AppBundle:List:listerTask.html.twig', array('title' => 'Show task','lists' => $lists));
 			}
-			
-		public function ajouterAction(Request $request)  
+
+        /**
+         * @param Request $request
+         * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
+         */
+        public function ajouterAction(Request $request)
 		{ 
 			 $task = new Tache();
-      
+
+           /* $data = $event->getData();
+
+            $positions = $data->getSport()->getAvailablePositions();
+
+            $form->add('position', 'entity', array('choices' => $positions));
+      */
         $form = $this->createFormBuilder($task)
             ->add('nomTache', 'text')
             //->add('liste','hidden', array('data' => this.getListe()))

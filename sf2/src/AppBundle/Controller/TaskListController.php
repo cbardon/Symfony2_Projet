@@ -7,6 +7,7 @@ namespace AppBundle\Controller;
    use AppBundle\Entity\ListeTaches;
    use Symfony\Component\HttpFoundation\Request;
    use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
     //use MyApp\FilmothequeBundle\Form\ActeurForm;
     
     class TaskListController extends Controller
@@ -27,17 +28,21 @@ namespace AppBundle\Controller;
 		public function ajouterAction(Request $request)  
 		{ 
 				 $task = new ListeTaches();
-      
-        $form = $this->createFormBuilder($task)
+            $listeTaches = new ListeTaches();
+
+            $form = $this->get('form.factory')->createBuilder('form', $task)
             ->add('nom', 'text')
             ->add('save', 'submit')
             ->getForm();
             
             $form->handleRequest($request);
             if($form->isValid()){
-				$nom = $request->request('nom');
-			    return $this->redirectToRoute('task_success');
-			}
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($task);
+                $em->flush();
+			//	$request->request('nom');
+                return $this->redirect($this->generateUrl('taskList_lister'));
+            }
 			
 		return $this->render('AppBundle:TaskList:ajouterListeTache.html.twig', array(
             'form' => $form->createView(),'title' => 'Add List task'
