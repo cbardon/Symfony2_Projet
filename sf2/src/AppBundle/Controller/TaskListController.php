@@ -28,7 +28,7 @@ namespace AppBundle\Controller;
 		public function ajouterAction(Request $request)  
 		{ 
 				 $task = new ListeTaches();
-            $listeTaches = new ListeTaches();
+
 
             $form = $this->get('form.factory')->createBuilder('form', $task)
             ->add('nom', 'text')
@@ -50,12 +50,32 @@ namespace AppBundle\Controller;
 		} 
 						     
 		public function modifierAction($id) 
-		{ 
+		{
+            $em = $this->getDoctrine()->getManager();
+            $listeTask = $em->getRepository('AppBundle:TaskList')->find($id);
+
+            if (!$listeTask) {
+                throw $this->createNotFoundException(
+                    'Aucune tache pour cet : '.$id
+                );
+            }
+
+            $listeTask->setName('L etat à bien était mis à jours!');
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('taskList_lister', array('title' => 'Task list')));
+
+
 		return $this->render('AppBundle:TaskList:modifierListeTache.html.twig', array('title' => 'Update Task List'));
 		 } 
 									     
 		 public function supprimerAction($id) 
-		 { 
-			return $this->render('AppBundle:TaskList:supprimerListeTache.html.twig', array('title' => 'Remove Task List'));
+		 {
+             $em = $this->getDoctrine()->getManager();
+             $listeTask = $em->getRepository('AppBundle:TaskList')->find($id);
+
+             $em->remove($listeTask);
+             $em->flush();
+			return $this->render($this->generateUrl('taskList_lister', array('title' => 'Task list')));
 		 }
 	}

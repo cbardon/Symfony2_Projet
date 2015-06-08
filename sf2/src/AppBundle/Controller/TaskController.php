@@ -53,9 +53,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
             
             $form->handleRequest($request);
             if($form->isValid()){
-				$nom = $request->request('nomTache');
-					$etat = $request->request('etat');
-				return $this->redirectToRoute('task_success');
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($task);
+                $em->flush();
+                //	$request->request('nom');
+                return $this->redirect($this->generateUrl('task_lister'));
 			}
 
       return $this->render('AppBundle:List:ajouterTask.html.twig', array(
@@ -63,15 +65,32 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 		
 		} 
 						     
-		public function modifierAction($id,Request $request) 
-		{ 
-			
-			
-		return $this->render('AppBundle:Tache:modifierTache.html.twig', array('title' => 'Update Task'));
+		public function modifierAction($id,Request $request)
+        {
+
+            $em = $this->getDoctrine()->getManager();
+            $Task = $em->getRepository('AppBundle:List')->find($id);
+
+            if (!$Task) {
+                throw $this->createNotFoundException(
+                    'Aucune tache pour l id: ' . $id
+                );
+            }
+
+            $Task->setName('L etat à bien était mis à jours!');
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('task_lister', array('title' => 'Task')));
+
+        
 		 } 
 									     
 		 public function supprimerAction($id,Request $request) 
-		 { 
-			return $this->render('AppBundle:Tache:supprimerTache.html.twig', array('title' => 'Remove Task'));
-		 }
+		 {
+             $em = $this->getDoctrine()->getManager();
+             $task = $em->getRepository('AppBundle:Task')->find($id);
+
+             $em->remove($task);
+             $em->flush();
+             return $this->render($this->generateUrl('task_lister', array('title' => 'Task'))); }
 	}
