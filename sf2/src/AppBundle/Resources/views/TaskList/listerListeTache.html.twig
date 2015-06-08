@@ -4,8 +4,10 @@
 
     {% for list in lists %}
         <li>
-            <h3>{{ list.id }} - {{ list.nom }}</h3>
-
+            <div class="panel">
+            <h3>{{ list.id }} - {{ list.nom }}</h3> <a href="">Valider</a> -- 
+                <a href="">Effacer</a>
+            </div>
         </li>
 
     {% endfor %}
