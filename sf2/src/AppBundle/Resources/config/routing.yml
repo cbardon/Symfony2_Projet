@@ -1,7 +1,3 @@
-task:
-    path:     /
-    defaults: {_controller: AppBundle:TaskList:lister }
-
 
 task_lister:
     pattern: /task/

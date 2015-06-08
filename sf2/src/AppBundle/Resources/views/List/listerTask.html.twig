@@ -2,8 +2,15 @@
 
 {% block content %}
         {% for list in lists %}
-             <li>
-                 <h3>- {{list.id }} - {{list.nomTache }} - {{ list.etat }} - {{ list.liste }}</h3>
+             <li>    <div class="panel">
+                 <h3>- {{list.id }} - {{list.nomTache }} -
+                     {% if list.etat == 0  %}
+                     {
+                     En cours
+                     }
+                     - {{ list.etat }} - {{ list.liste }}</h3><a href="">Valider</a> --
+                 <a href="">Effacer</a>
+                     </div>
              </li>
 
         {% endfor %}

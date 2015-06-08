@@ -82,7 +82,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
             return $this->redirect($this->generateUrl('task_lister', array('title' => 'Task')));
 
-        
+
 		 } 
 									     
 		 public function supprimerAction($id,Request $request) 

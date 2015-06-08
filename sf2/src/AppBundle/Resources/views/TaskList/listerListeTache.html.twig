@@ -5,8 +5,8 @@
     {% for list in lists %}
         <li>
             <div class="panel">
-            <h3>{{ list.id }} - {{ list.nom }}</h3> <a href="">Valider</a> -- 
-                <a href="">Effacer</a>
+            <h3>{{ list.id }} - {{ list.nom }}</h3> <a href="">Valider</a> --
+                <a href='supprimer/{{ list.id }}'>Effacer</a>
             </div>
         </li>
 

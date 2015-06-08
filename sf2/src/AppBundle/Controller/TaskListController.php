@@ -49,8 +49,26 @@ namespace AppBundle\Controller;
         ));
 		} 
 						     
-		public function modifierAction($id) 
+		public function modifierAction($id)
 		{
+            $em = $this->getDoctrine()->getManager();
+            $itemRepo = $em->getRepository('AppBundle:ListeTaches');
+            $item = $itemRepo->findOneById($id);
+            if($item == null || ($item->getId() != $id)) {
+                throw new NotFoundHttpException();
+            }
+            // Creation of the form
+            $form = $this->createForm(new ListeTaches(), $item);
+            // Exploitation of the form
+            $request = $this->get('request');
+            if($request->getMethod() == 'POST'){
+                $form->handleRequest($request);
+                if($form->isValid()) {
+                    $em->flush();
+                }
+                }
+/*
+
             $em = $this->getDoctrine()->getManager();
             $listeTask = $em->getRepository('AppBundle:TaskList')->find($id);
 
@@ -64,7 +82,7 @@ namespace AppBundle\Controller;
             $em->flush();
 
             return $this->redirect($this->generateUrl('taskList_lister', array('title' => 'Task list')));
-
+*/
 
 		return $this->render('AppBundle:TaskList:modifierListeTache.html.twig', array('title' => 'Update Task List'));
 		 } 
@@ -72,10 +90,10 @@ namespace AppBundle\Controller;
 		 public function supprimerAction($id) 
 		 {
              $em = $this->getDoctrine()->getManager();
-             $listeTask = $em->getRepository('AppBundle:TaskList')->find($id);
+             $listeTask = $em->getRepository('AppBundle:ListeTaches')->find($id);
 
              $em->remove($listeTask);
              $em->flush();
-			return $this->render($this->generateUrl('taskList_lister', array('title' => 'Task list')));
+             return $this->redirect($this->generateUrl('taskList_lister'));
 		 }
 	}
