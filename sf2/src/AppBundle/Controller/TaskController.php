@@ -15,61 +15,61 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     //use MyApp\FilmothequeBundle\Form\ActeurForm;
     
     class TaskController extends Controller
-     {
-		  public function listerAction()
-		     {
-                $task = $this->getDoctrine()->getManager();
-                 $listRepository = $task->getRepository('AppBundle:Tache');
+    {
+        public function listerAction()
+        {
+            $task = $this->getDoctrine()->getManager();
+            $listRepository = $task->getRepository('AppBundle:Tache');
 
-                 $lists = $listRepository->findAll();
+            $lists = $listRepository->findAll();
 
-                 if(!$task){
-                     throw $this->createNotFoundException('No task !');
-                 }
-			return $this->render('AppBundle:List:listerTask.html.twig', array('title' => 'Show task','lists' => $lists));
-			}
+            if (!$task) {
+                throw $this->createNotFoundException('No task !');
+            }
+            return $this->render('AppBundle:List:listerTask.html.twig', array('title' => 'Show task', 'lists' => $lists));
+        }
 
         /**
          * @param Request $request
          * @return RedirectResponse|\Symfony\Component\HttpFoundation\Response
          */
         public function ajouterAction(Request $request)
-		{ 
-			 $task = new Tache();
+        {
+            $task = new Tache();
 
-           /* $data = $event->getData();
+            /* $data = $event->getData();
 
-            $positions = $data->getSport()->getAvailablePositions();
+             $positions = $data->getSport()->getAvailablePositions();
 
-            $form->add('position', 'entity', array('choices' => $positions));
-      */
-        $form = $this->createFormBuilder($task)
-            ->add('nomTache', 'text')
-            //->add('liste','hidden', array('data' => this.getListe()))
-                ->add('etat', 'checkbox', array(
-                'label' => 'Check !', 'required' => false,))
-            ->add('save', 'submit')
-            ->getForm();
-            
+             $form->add('position', 'entity', array('choices' => $positions));
+       */
+            $form = $this->createFormBuilder($task)
+                ->add('nomTache', 'text')
+                ->add('liste','hidden', array('data' => this.getListe()))
+                /*->add('etat', 'checkbox', array(
+                    'label' => 'Check !', 'required' => false,))*/
+                ->add('save', 'submit')
+                ->getForm();
+
             $form->handleRequest($request);
-            if($form->isValid()){
+            if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($task);
                 $em->flush();
                 //	$request->request('nom');
                 return $this->redirect($this->generateUrl('task_lister'));
-			}
+            }
 
-      return $this->render('AppBundle:List:ajouterTask.html.twig', array(
-            'form' => $form->createView(), 'title' => 'Add task'));
-		
-		} 
-						     
-		public function modifierAction($id,Request $request)
+            return $this->render('AppBundle:List:ajouterTask.html.twig', array(
+                'form' => $form->createView(), 'title' => 'Add task'));
+
+        }
+
+        public function modifierAction($id)
         {
 
             $em = $this->getDoctrine()->getManager();
-            $Task = $em->getRepository('AppBundle:List')->find($id);
+            $Task = $em->getRepository('AppBundle:Tache')->find($id);
 
             if (!$Task) {
                 throw $this->createNotFoundException(
@@ -77,20 +77,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
                 );
             }
 
-            $Task->setName('L etat à bien était mis à jours!');
+            $Task->setEtat(1);
             $em->flush();
 
             return $this->redirect($this->generateUrl('task_lister', array('title' => 'Task')));
 
 
-		 } 
-									     
-		 public function supprimerAction($id,Request $request) 
-		 {
-             $em = $this->getDoctrine()->getManager();
-             $task = $em->getRepository('AppBundle:Task')->find($id);
+        }
 
-             $em->remove($task);
-             $em->flush();
-             return $this->render($this->generateUrl('task_lister', array('title' => 'Task'))); }
-	}
+        public function supprimerAction($id)
+        {
+            $em = $this->getDoctrine()->getManager();
+            $task = $em->getRepository('AppBundle:Tache')->find($id);
+
+            $em->remove($task);
+            $em->flush();
+            return $this->redirect($this->generateUrl('task_lister'));
+        }
+    }

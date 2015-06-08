@@ -3,13 +3,19 @@
 {% block content %}
         {% for list in lists %}
              <li>    <div class="panel">
-                 <h3>- {{list.id }} - {{list.nomTache }} -
+                 <h3>- {{list.id }} - {{list.nomTache }} - {{ list.liste }} </h3>
                      {% if list.etat == 0  %}
                      {
-                     En cours
+                     <p>En cours</p>
+                     <a href="modifier/{{ list.id }}'">Valider</a> --
+                     <a href="supprimer/{{ list.id }}'">Effacer</a>
                      }
-                     - {{ list.etat }} - {{ list.liste }}</h3><a href="">Valider</a> --
-                 <a href="">Effacer</a>
+                     {% else if list.etat == 1 %}
+                     {
+                     <p>Déjà validé</p>
+                     <a href="supprimer/{{ list.id }}'">Effacer</a>
+                     }
+
                      </div>
              </li>
 
