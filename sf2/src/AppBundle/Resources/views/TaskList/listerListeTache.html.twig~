@@ -5,7 +5,7 @@
     {% for list in lists %}
         <li>
             <div class="panel">
-            <h3><a href='../task/taskList/{{ list.id }}'>List Name : {{ list.nom }}</h3></a> <a href="modifier/{{ list.id }}">Update</a> --
+            <h3><a href='../task/taskList/{{ list.id }}'>List Name : {{ list.nom }}</h3></a> <a href="modifier/{id}">Update</a> --
                 <a href='supprimer/{{ list.id }}'>Delete</a>
             </div>
         </li>

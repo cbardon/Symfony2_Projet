@@ -1,27 +1,37 @@
-tache_lister:
-    pattern: /tache/
-    defaults: {_controller: AppBundle:Tache:lister }
-tache_ajouter: 
-    pattern: /tache/ajouter
-    defaults: {_controller: AppBundle:Tache:ajouter }
-tache_modifier:
-    pattern: /tache/modifier/{id}
-    defaults: {_controller: AppBundle:Tache:modifier }
-tache_supprimer: 
-    pattern: /tache/supprimer/{id}
-    defaults: {_controller: AppBundle:Tache:supprimer }
+
+task_lister:
+    pattern: /task/taskList/{idList}
+    defaults: {_controller: AppBundle:Task:lister }
+task_ajouter:
+    pattern: /task/taskList/{idList}/ajouter/
+    defaults: {_controller: AppBundle:Task:ajouter }
+task_modifier:
+    pattern: /task/taskList/{idList}/modifier/{id}
+    defaults: {_controller: AppBundle:Task:modifier }
+task_modifier_nom:
+    pattern: /task/taskList/{idList}/modifierNom/{id}
+    defaults: {_controller: AppBundle:Task:modifierNom }
+task_supprimer:
+    pattern: /task/taskList/{idList}/supprimer/{id}
+    defaults: {_controller: AppBundle:Task:supprimer }
 
 
 
-listeTache_lister:
-    pattern: /listeTache/
+taskList_lister:
+    pattern: /taskList/
     defaults: {_controller: AppBundle:TaskList:lister }
-listeTache_ajouter: 
-    pattern: /listeTache/ajouter
+taskList_ajouter:
+    pattern: /taskList/ajouter
     defaults: {_controller: AppBundle:TaskList:ajouter }
-listeTache_modifier:
-    pattern: /listeTache/modifier/{id}
+taskListe_modifier:
+    pattern: /taskList/modifier/{id}
     defaults: {_controller: AppBundle:TaskList:modifier }
-listeTache_supprimer: 
-    pattern: /listeTache/supprimer/{id}
+taskList_supprimer:
+    pattern: /taskList/supprimer/{id}
     defaults: {_controller: AppBundle:TaskList:supprimer }
+
+oauth_test:
+    pattern: /oauth/
+    defaults: {_controller: AppBundle:OAuth:lister }
+
+

@@ -49,42 +49,40 @@ namespace AppBundle\Controller;
         ));
 		} 
 						     
-		public function modifierAction($id)
+		public function modifierAction($id,Request $request)
 		{
-            $em = $this->getDoctrine()->getManager();
-            $itemRepo = $em->getRepository('AppBundle:ListeTaches');
-            $item = $itemRepo->findOneById($id);
-            if($item == null || ($item->getId() != $id)) {
-                throw new NotFoundHttpException();
+			//$task = new ListeTaches();
+			
+			
+			$em = $this->getDoctrine()->getManager();
+			$listRepository = $em->getRepository('AppBundle:ListeTaches');
+			$task = $listRepository->findOneById($id);
+            $nom = $task->getNom();
+            
+            
+
+            $form = $this->get('form.factory')->createBuilder('form', $task)
+            ->add('nom', 'text',array('data' => $nom))
+            ->add('update', 'submit')
+            ->getForm();
+            
+            
+			$form->handleRequest($request);
+            if($form->isValid()){
+				$data = $form->getData();
+				
+				 $task->setNom($data->getNom());
+                $em->persist($task);
+                
+		
+                $em->flush();
+			//	$request->request('nom');
+                return $this->redirect($this->generateUrl('taskList_lister'));
             }
-            // Creation of the form
-            $form = $this->createForm(new ListeTaches(), $item);
-            // Exploitation of the form
-            $request = $this->get('request');
-            if($request->getMethod() == 'POST'){
-                $form->handleRequest($request);
-                if($form->isValid()) {
-                    $em->flush();
-                }
-                }
-/*
+			
+	
 
-            $em = $this->getDoctrine()->getManager();
-            $listeTask = $em->getRepository('AppBundle:TaskList')->find($id);
-
-            if (!$listeTask) {
-                throw $this->createNotFoundException(
-                    'Aucune tache pour cet : '.$id
-                );
-            }
-
-            $listeTask->setName('L etat à bien était mis à jours!');
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('taskList_lister', array('title' => 'Task list')));
-*/
-
-		return $this->render('AppBundle:TaskList:modifierListeTache.html.twig', array('title' => 'Update Task List'));
+		return $this->render('AppBundle:TaskList:modifierListeTache.html.twig', array('title' => 'Update Task List', 'form' => $form->createView()));
 		 } 
 									     
 		 public function supprimerAction($id) 
@@ -96,4 +94,14 @@ namespace AppBundle\Controller;
              $em->flush();
              return $this->redirect($this->generateUrl('taskList_lister'));
 		 }
+		 
+		 
+		/* public function findListName($id)
+    {
+        return $this->getDoctrine()->getEntityManager()
+            ->createQuery(
+                'SELECT nom FROM AppBundle:ListeTaches WHERE id = '.$id
+            )
+            ->getResult();
+    }*/
 	}

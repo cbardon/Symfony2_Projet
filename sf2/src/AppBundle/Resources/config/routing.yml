@@ -1,15 +1,18 @@
 
 task_lister:
-    pattern: /task/
+    pattern: /task/taskList/{idList}
     defaults: {_controller: AppBundle:Task:lister }
 task_ajouter:
-    pattern: /task/ajouter
+    pattern: /task/taskList/{idList}/ajouter/
     defaults: {_controller: AppBundle:Task:ajouter }
 task_modifier:
-    pattern: /task/modifier/{id}
+    pattern: /task/taskList/{idList}/modifier/{id}
     defaults: {_controller: AppBundle:Task:modifier }
+task_modifier_nom:
+    pattern: /task/taskList/{idList}/modifierNom/{id}
+    defaults: {_controller: AppBundle:Task:modifierNom }
 task_supprimer:
-    pattern: /task/supprimer/{id}
+    pattern: /task/taskList/{idList}/supprimer/{id}
     defaults: {_controller: AppBundle:Task:supprimer }
 
 
@@ -26,5 +29,9 @@ taskListe_modifier:
 taskList_supprimer:
     pattern: /taskList/supprimer/{id}
     defaults: {_controller: AppBundle:TaskList:supprimer }
+
+oauth_test:
+    pattern: /oauth/
+    defaults: {_controller: AppBundle:OAuth:test }
 
 

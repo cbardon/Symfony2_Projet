@@ -1,20 +1,25 @@
 {% extends "AppBundle::layout.html.twig" %}
 
 {% block content %}
+<h1>List of task for list n°{{ idlist }} </h1>
         {% for list in lists %}
              <li>    <div class="panel">
-                 <h3>- {{list.id }} - {{list.nomTache }} - {{ list.liste }} </h3>
+                 <h3>{{list.id }} - Name : {{list.nomTache }}</h3>
                      {% if list.etat == 0  %}
-                     {
-                     <p>En cours</p>
-                     <a href="modifier/{{ list.id }}'">Valider</a> --
-                     <a href="supprimer/{{ list.id }}'">Effacer</a>
-                     }
-                     {% else if list.etat == 1 %}
-                     {
-                     <p>Déjà validé</p>
-                     <a href="supprimer/{{ list.id }}'">Effacer</a>
-                     }
+                   
+                     <p>In progress</p>
+                     <a href="{{idlist}}/modifierNom/{{ list.id }}'">Change name</a> --
+                     <a href="{{idlist}}/modifier/{{ list.id }}'">Check</a> --
+                     <a href="{{idlist}}/supprimer/{{ list.id }}'">Delete</a>
+                    
+                     {% elseif list.etat == 1 %}
+                    
+                     <p>Already check</p>
+                     <a href="{{idlist}}/modifierNom/{{ list.id }}'">Change name</a> -- 
+                     <a href= {{idlist}}/modifier/{{list.id}}'">Not check</a> --
+                     <a href="supprimer/{{ list.id }}'">Delete</a>
+                    
+                     {%  endif %}
 
                      </div>
              </li>
