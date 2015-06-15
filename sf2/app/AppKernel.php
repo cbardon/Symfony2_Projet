@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new Acme\DemoBundle\AcmeDemoBundle(),
             new Nelmio\SecurityBundle\NelmioSecurityBundle(),
+            new Vendor\HappyR\Google\ApiBundle\HappyRGoogleApiBundle(),
             
 
         );
