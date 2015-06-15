@@ -1,5 +1,5 @@
 <?php
-
+/*
 namespace AppBundle\Controller;
  use Symfony\Component\DependencyInjection\ContainerAware;
   use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -20,4 +20,34 @@ class TaskListController extends Controller
 				 
 			 }
 			
+}
+
+
+<?php
+*/
+namespace AppBundle\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
+class OAuthController extends Controller {
+
+public function connectionAction() {
+
+$client = $this->get ('googleClient');
+
+
+return $this->redirect ( filter_var ( $client->createAuthUrl(), FILTER_SANITIZE_URL ) );
+
+
+// return $this->render('default/index.html.twig');
+}
+
+public function oauth2callbackAction(Request $request)
+{
+$client = $this->get ('googleClient');
+$client->authenticate($request->query->get('code'));
+var_dump($client->getTaskLists());
+}
+
 }
